@@ -18,9 +18,11 @@ var game = new Phaser.Game(790, 400, Phaser.AUTO, 'game', stateActions);
  * Loads all resources for the game and gives them names.
  */
 
+var lives;
 var score = 0;
 
 function preload() {
+    lives = prompt("How many lives", "5");
     game.load.audio("nyan", "../assets/nyan.wav");
     game.load.image("busImg", "../assets/bus.png");
 }
@@ -32,7 +34,7 @@ function create() {
     // set the background colour of the scene
     game.stage.setBackgroundColor("#FF0000");
 
-    game.input
+    game.input.keyboard.SPACEBAR.add(player)
     game.sound.play("nyan");
     var bus= game.add.sprite(10, 270, "busImg");
 
@@ -44,4 +46,8 @@ function create() {
  */
 function update() {
     game.add.text(620, 20 , "Score = " + score.toString())
+}
+
+function playerOneHandler(event){
+
 }
