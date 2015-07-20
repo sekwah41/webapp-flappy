@@ -38,10 +38,12 @@ function preload() {
 
 
     game.load.audio("nyan", "../assets/nyan.wav");
-    game.load.image("busImgOne", "../assets/flappyBus.png");
-    game.load.image("busImgTwo", "../assets/flappyBusTwo.png");
+    game.load.image("busImgOne", "../assets/flappy-bus.png");
+    game.load.image("busImgTwo", "../assets/flappy-bus2.png");
 
-    player2 = new Player(0,lives,"busImgTwo");
+    player = new Player(0,lives,game.add.sprite( 40,200, "busImgOne"));
+
+    player2 = new Player(0,lives,game.add.sprite( 40,200, "busImgTwo"));
 
 
 }
@@ -55,21 +57,23 @@ function create() {
     game.sound.play("nyan");
     game.input
         .keyboard.addKey(Phaser.Keyboard.SPACEBAR)
-        .onDown.add(hander);
+        .onDown.add(handler);
 
 
-    busOne = game.add.sprite(10, 200, "busImgOne");
-    busTwo = game.add.sprite( 40,200, "busImgTwo");
-    busOne.body.gravity.y = 20;
-    busTwo.body.gravity.y = 20;
+    //player.sprite = game.add.sprite(10, 200, "busImgOne");
+    //player2.sprite = game.add.sprite( 40,200, "busImgTwo");
+    game.physics.arcade.enable(player.sprite);
+    game.physics.arcade.enable(player2.sprite);
+    player.sprite.body.gravity.y = 20;
+    player2.sprite.body.gravity.y = 20;
 }
 
 /*
  * This function updates the scene. It is called for every new frame.
  */
 function update() {
-    game.add.text(620, 20 , "Score = " + scoreOne.toString());
-    game.add.text(620, 50 , "Score = " + scoreTwo.toString());
+    game.add.text(620, 20 , "Score = " + player.score.toString());
+    game.add.text(620, 50 , "Score = " + player2.score.toString());
 
 }
 
