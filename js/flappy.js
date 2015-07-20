@@ -26,6 +26,8 @@ function create() {
 
     game.stage.setBackgroundColor("#FF0200");
 
+    //fadkljdklajfa]
+
 }
 
 /*
