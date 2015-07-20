@@ -41,7 +41,7 @@ function preload() {
     game.load.image("busImgOne", "../assets/flappy-bus.png");
     game.load.image("busImgTwo", "../assets/flappy-bus2.png");
 
-    player2 = new Player(0,lives,"busImgTwo");
+    player = new Player(0,lives,game.add.sprite( 40,200, "busImgOne"));
 
     player2 = new Player(0,lives,game.add.sprite( 40,200, "busImgTwo"));
 
@@ -75,8 +75,9 @@ function create() {
  * This function updates the scene. It is called for every new frame.
  */
 function update() {
-    game.add.text(620, 20 , "Score = " + player.score.toString());
-    game.add.text(620, 50 , "Score = " + player2.score.toString());
+    game.add.text(620, 20, "Score = " + player.score.toString());
+    game.add.text(620, 50, "Score = " + player2.score.toString());
+}
 
 function handlerP1(event) {
     handler(event, player);
