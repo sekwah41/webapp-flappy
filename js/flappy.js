@@ -18,13 +18,21 @@ var game = new Phaser.Game(790, 400, Phaser.AUTO, 'game', stateActions);
  * Loads all resources for the game and gives them names.
  */
 
-var lives;
+var livesPlayerOne;
+var livesPlayerTwo;
 var score = 0;
 
+var busOne;
+var busTwo;
+
 function preload() {
-    lives = prompt("How many lives", "5");
+    livesPlayerOne = prompt("How many lives", "5");
+    livesPlayerTwo = livesPlayerOne;
+
     game.load.audio("nyan", "../assets/nyan.wav");
-    game.load.image("busImg", "../assets/bus.png");
+    game.load.image("busImgOne", "../assets/flappyBus.png");
+    game.load.image("busImgTwo", "../assets/flappyBusTwo.png");
+
 }
 
 /*
@@ -34,20 +42,24 @@ function create() {
     // set the background colour of the scene
     game.stage.setBackgroundColor("#FF0000");
 
-    game.input.keyboard.SPACEBAR.add(player)
+    game.input.keyboard.SPACEBAR.add(player);
     game.sound.play("nyan");
-    var bus= game.add.sprite(10, 270, "busImg");
 
-
+    busOne = game.add.sprite(10, 200, "busImgOne");
+    busTwo = game.add.sprite( 40,200, "busImgTwo");
+    busOne.body.gravity.y = 20;
+    busTwo.body.gravity.y = 20;
 }
 
 /*
  * This function updates the scene. It is called for every new frame.
  */
 function update() {
-    game.add.text(620, 20 , "Score = " + score.toString())
+    game.add.text(620, 20 , "Score = " + score.toString());
+
 }
 
 function playerOneHandler(event){
-
+    busOne.body.velocity.y = -100;
 }
+
