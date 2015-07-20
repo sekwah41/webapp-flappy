@@ -22,6 +22,8 @@ function preload() {
  */
 function create() {
     // set the background colour of the scene
+    game.stage.setBackgroundColor("#FF0000");
+
 }
 
 /*
