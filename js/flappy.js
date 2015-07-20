@@ -34,16 +34,10 @@ var game = new Phaser.Game(790, 400, Phaser.AUTO, 'game', stateActions);
  */
 
 function preload() {
-     var lives = prompt("How many lives", "5");
-
 
     game.load.audio("nyan", "../assets/nyan.wav");
     game.load.image("busImgOne", "../assets/flappy-bus.png");
     game.load.image("busImgTwo", "../assets/flappy-bus2.png");
-
-    player = new Player(0,lives,game.add.sprite( 40,200, "busImgOne"));
-
-    player2 = new Player(0,lives,game.add.sprite( 40,200, "busImgTwo"));
 
 
 }
@@ -52,7 +46,13 @@ function preload() {
  * Initialises the game. This function is only called once.
  */
 function create() {
+    var lives = prompt("How many lives", "5");
+
     // set the background colour of the scene
+
+    player = new Player(0,lives,game.add.sprite( 40,200, "busImgOne"));
+
+    player2 = new Player(0,lives,game.add.sprite( 40,200, "busImgTwo"));
 
     game.sound.play("nyan");
     game.input
@@ -67,8 +67,8 @@ function create() {
     //player2.sprite = game.add.sprite( 40,200, "busImgTwo");
     game.physics.arcade.enable(player.sprite);
     game.physics.arcade.enable(player2.sprite);
-    player.sprite.body.gravity.y = 20;
-    player2.sprite.body.gravity.y = 20;
+    player.sprite.body.gravity.y = 180;
+    player2.sprite.body.gravity.y = 180;
 }
 
 /*
@@ -80,14 +80,14 @@ function update() {
 }
 
 function handlerP1(event) {
-    handler(event, player);
+    handler(event, player.sprite);
 }
 
 function handlerP2(event) {
-    handler(event, player2);
+    handler(event, player2.sprite);
 }
 
 function handler(event, sprite){
-    sprite.sprite.velocityX -= 100;
+    sprite.body.velocity.y = -180;
 }
 
