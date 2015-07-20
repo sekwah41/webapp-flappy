@@ -81,6 +81,11 @@ function create() {
     game.physics.arcade.enable(player2.sprite);
     player.sprite.body.gravity.y = 180;
     player2.sprite.body.gravity.y = 180;
+
+    pipeInterval = 1.75;
+    game.time.events
+        .loop(pipeInterval * Phaser.Timer.SECOND,
+    newPipe);
 }
 
 /*
@@ -112,9 +117,13 @@ function handlerP2(event) {
     handler(event, player2);
 }
 
-function handler(event, player){
+function handler(event, player) {
     player.sprite.body.velocity.y = -180;
     //player.sprite.angle = -45;
     player.rotateSpeed = 0;
+}
+
+function newPipe(){
+    var pipeBlock = game.add.spr
 }
 
