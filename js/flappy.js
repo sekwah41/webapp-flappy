@@ -15,6 +15,8 @@ function Player(score, lives, sprite) {
     this.score = score;
     this.lives = lives;
     this.sprite = sprite;
+    this.rotateSpeed = 0;
+    this.sprite.anchor.setTo(0.5, 0.5);
 }
 
 var player;
@@ -28,6 +30,10 @@ var player2 = player;
 // - element where the game will be drawn ('game')
 // - actions on the game state (or null for nothing)
 var game = new Phaser.Game(790, 400, Phaser.AUTO, 'game', stateActions);
+
+var scoreDisplay;
+
+var scoreDisplay2;
 
 /*
  * Loads all resources for the game and gives them names.
@@ -52,7 +58,13 @@ function create() {
 
     player = new Player(0,lives,game.add.sprite( 40,200, "busImgOne"));
 
-    player2 = new Player(0,lives,game.add.sprite( 40,200, "busImgTwo"));
+    scoreDisplay1 = game.add.text(620, 20, "Score = " + player.score.toString());
+    scoreDisplay2 = game.add.text(620, 50, "Score = " + player2.score.toString());
+
+
+    //player.sprite.scale.setTo(5, 5);
+
+    player2 = new Player(0,lives,game.add.sprite( 120,200, "busImgTwo"));
 
     game.sound.play("nyan");
     game.input
@@ -75,19 +87,34 @@ function create() {
  * This function updates the scene. It is called for every new frame.
  */
 function update() {
-    game.add.text(620, 20, "Score = " + player.score.toString());
-    game.add.text(620, 50, "Score = " + player2.score.toString());
+
+
+    updateRotation(player)
+    updateRotation(player2)
+}
+
+function updateRotation(player){
+    if(player.sprite.angle < 45 && player.sprite.body.velocity.y >= -20){
+        player.sprite.angle += player.rotateSpeed;
+        player.rotateSpeed += 0.2;
+    }
+    if(player.sprite.angle > -45 && player.sprite.body.velocity.y <= -20){
+        player.sprite.angle -= 7;
+    }
+    //sprite.body.velocity.y
 }
 
 function handlerP1(event) {
-    handler(event, player.sprite);
+    handler(event, player);
 }
 
 function handlerP2(event) {
-    handler(event, player2.sprite);
+    handler(event, player2);
 }
 
-function handler(event, sprite){
-    sprite.body.velocity.y = -180;
+function handler(event, player){
+    player.sprite.body.velocity.y = -180;
+    //player.sprite.angle = -45;
+    player.rotateSpeed = 0;
 }
 
