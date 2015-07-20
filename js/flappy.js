@@ -19,7 +19,6 @@ var game = new Phaser.Game(790, 400, Phaser.AUTO, 'game', stateActions);
  */
 function preload() {
 
-    //game.load.audio("nyanCat", "../assets/nyan.mp3");
 
 }
 
