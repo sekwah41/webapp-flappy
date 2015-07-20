@@ -20,7 +20,8 @@ var game = new Phaser.Game(790, 400, Phaser.AUTO, 'game', stateActions);
 
 var livesPlayerOne;
 var livesPlayerTwo;
-var score = 0;
+var scoreOne = 0;
+var scoreTwo = 0;
 
 var busOne;
 var busTwo;
@@ -42,7 +43,7 @@ function create() {
     // set the background colour of the scene
     game.stage.setBackgroundColor("#FF0000");
 
-    game.input.keyboard.SPACEBAR.add(player);
+    game.input.keyboard.SPACEBAR.add(playerOneHandler);
     game.sound.play("nyan");
 
     busOne = game.add.sprite(10, 200, "busImgOne");
@@ -55,11 +56,12 @@ function create() {
  * This function updates the scene. It is called for every new frame.
  */
 function update() {
-    game.add.text(620, 20 , "Score = " + score.toString());
+    game.add.text(620, 20 , "Score = " + scoreOne.toString());
+    game.add.text(620, 50 , "Score = " + scoreTwo.toString());
 
 }
 
 function playerOneHandler(event){
-    busOne.body.velocity.y = -100;
+    aler("hi");
 }
 
