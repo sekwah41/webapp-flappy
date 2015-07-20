@@ -17,6 +17,9 @@ var game = new Phaser.Game(790, 400, Phaser.AUTO, 'game', stateActions);
 /*
  * Loads all resources for the game and gives them names.
  */
+
+var score = 0;
+
 function preload() {
 
     //game.load.audio("nyanCat", "../assets/nyan.mp3");
@@ -32,10 +35,8 @@ function create() {
 
     game.stage.setBackgroundColor("#FF0200");
 
-    //fadkljdklajfa]
 
 
-    game.stage.setBackgroundColor("#FF0200");
 
 }
 
@@ -43,5 +44,5 @@ function create() {
  * This function updates the scene. It is called for every new frame.
  */
 function update() {
-
+    game.add.text(620, 20 , "Score = " + score.toString())
 }
