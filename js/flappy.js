@@ -145,6 +145,14 @@ function update() {
         player2.alive = true;
     }
 
+    if(player.sprite.y > 400){
+        player.sprite.y = 400;
+    }
+
+    if(player2.sprite.y > 400){
+        player2.sprite.y = 400;
+    }
+
     scoreDisplay1.setText("Player 1 Score = " + player.score);
     scoreDisplay2.setText("Player 2 Score = " + player2.score)
 }
