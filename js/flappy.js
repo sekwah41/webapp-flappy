@@ -11,7 +11,8 @@ var stateActions = { preload: preload, create: create, update: update };
 // Character objects
 
 
-function Player(score, lives, sprite) {
+function Player(playerNum, score, lives, sprite) {
+    this.playerNum = playerNum;
     this.score = score;
     this.lives = lives;
     this.sprite = sprite;
@@ -28,6 +29,10 @@ var reloadTimeP1 = 101; //Doesn't matter what it is as long it is bigger than 10
 var reloadTimeP2 = 101;
 var game = new Phaser.Game(790, 400, Phaser.AUTO, 'game', stateActions);
 
+var scoreDisplay;
+
+var scoreDisplay2;
+
 /*
  * Loads all resources for the game and gives them names.
  */
@@ -35,10 +40,18 @@ var game = new Phaser.Game(790, 400, Phaser.AUTO, 'game', stateActions);
 function preload() {
 
     game.load.audio("nyan", "../assets/nyan.wav");
+    //test.volume = 0.1;
+    game.load.audio("horn11", "../assets/horn11.wav");
+    game.load.audio("horn21", "../assets/horn21.wav");
+    game.load.audio("horn31", "../assets/horn31.wav");
+    game.load.audio("horn12", "../assets/horn12.wav");
+    game.load.audio("horn22", "../assets/horn22.wav");
+    game.load.audio("horn32", "../assets/horn32.wav");
     game.load.image("busImgOne", "../assets/flappy-bus.png");
     game.load.image("busImgTwo", "../assets/flappy-bus2.png");
     game.load.image("road", "../assets/roadBackground.jpg");
     game.load.image("pipe", "../assets/pipe2-body.png");
+
 
 }
 
@@ -46,19 +59,21 @@ function preload() {
  * Initialises the game. This function is only called once.
  */
 function create() {
-    var lives = 5;
+    var lives = 5;//prompt("How many lives", "5");
 
     // set the background colour of the scene
     var background = game.add.image(0, 0, "road");
     background.width = 790;
     background.height = 400;
 
-    player = new Player(0,lives,game.add.sprite( 40,200, "busImgOne"));
+    player = new Player(1,0,lives,game.add.sprite( 40,200, "busImgOne"));
 
-    player2 = new Player(0,lives,game.add.sprite( 120,200, "busImgTwo"));
+    scoreDisplay1 = game.add.text(620, 20, "Score = " + player.score.toString());
+    scoreDisplay2 = game.add.text(620, 50, "Score = " + player2.score.toString());
 
     scoreDisplay1 = game.add.text(510, 20, "Score = " + player.score.toString());
 
+    //player.sprite.scale.setTo(5, 5);
 
     scoreDisplay2 = game.add.text(510, 50, "Score = " + player2.score.toString());
 
@@ -155,6 +170,7 @@ function handler(event, player) {
     player.sprite.body.velocity.y = -180;
     //player.sprite.angle = -45;
     player.rotateSpeed = 0;
+    game.sound.play("horn" + Math.floor(Math.random() * 2 + 1.5) + player.playerNum);
 }
 
 function newPipe(){
