@@ -21,8 +21,8 @@ var game = new Phaser.Game(790, 400, Phaser.AUTO, 'game', stateActions);
 var score = 0;
 
 function preload() {
-
-
+    game.load.audio("nyan", "../assets/nyan.wav");
+    game.load.image("busImg", "../assets/bus.png");
 }
 
 /*
@@ -32,9 +32,9 @@ function create() {
     // set the background colour of the scene
     game.stage.setBackgroundColor("#FF0000");
 
-    game.stage.setBackgroundColor("#FF0200");
-
-
+    game.input
+    game.sound.play("nyan");
+    var bus= game.add.sprite(10, 270, "busImg");
 
 
 }
