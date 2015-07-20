@@ -1,3 +1,8 @@
+/*
+    Flappy Bus
+    Authors - Alastair and Jonah
+    Date - 20/07/2015
+*/
 // the Game object used by the phaser.io library
 var stateActions = { preload: preload, create: create, update: update };
 
@@ -14,6 +19,7 @@ var game = new Phaser.Game(790, 400, Phaser.AUTO, 'game', stateActions);
  */
 function preload() {
 
+    //game.load.audio("nyanCat", "../assets/nyan.mp3");
 
 }
 
