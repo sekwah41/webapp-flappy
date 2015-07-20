@@ -41,7 +41,7 @@ function preload() {
     game.load.image("busImgOne", "../assets/flappy-bus.png");
     game.load.image("busImgTwo", "../assets/flappy-bus2.png");
 
-    player = new Player(0,lives,game.add.sprite( 40,200, "busImgOne"));
+    player2 = new Player(0,lives,"busImgTwo");
 
     player2 = new Player(0,lives,game.add.sprite( 40,200, "busImgTwo"));
 
@@ -57,7 +57,10 @@ function create() {
     game.sound.play("nyan");
     game.input
         .keyboard.addKey(Phaser.Keyboard.SPACEBAR)
-        .onDown.add(handler);
+        .onDown.add(handlerP1);
+    game.input
+        .keyboard.addKey(Phaser.Keyboard.ENTER)
+        .onDown.add(handlerP2);
 
 
     //player.sprite = game.add.sprite(10, 200, "busImgOne");
@@ -75,6 +78,12 @@ function update() {
     game.add.text(620, 20 , "Score = " + player.score.toString());
     game.add.text(620, 50 , "Score = " + player2.score.toString());
 
+function handlerP1(event) {
+    handler(event, player);
+}
+
+function handlerP2(event) {
+    handler(event, player2);
 }
 
 function handler(event, sprite){
