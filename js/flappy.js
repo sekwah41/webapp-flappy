@@ -6,6 +6,21 @@
 // the Game object used by the phaser.io library
 var stateActions = { preload: preload, create: create, update: update };
 
+
+
+// Character objects
+
+
+function Player(scores, lives, sprite) {
+    this.score = score;
+    this.lives = lives;
+    this.sprite = sprite;
+}
+
+var player;
+var player2 = player;
+
+
 // Phaser parameters:
 // - game width
 // - game height
@@ -18,21 +33,16 @@ var game = new Phaser.Game(790, 400, Phaser.AUTO, 'game', stateActions);
  * Loads all resources for the game and gives them names.
  */
 
-var livesPlayerOne;
-var livesPlayerTwo;
-var scoreOne = 0;
-var scoreTwo = 0;
-
-var busOne;
-var busTwo;
-
 function preload() {
-    livesPlayerOne = prompt("How many lives", "5");
-    livesPlayerTwo = livesPlayerOne;
+     var lives = prompt("How many lives", "5");
+
 
     game.load.audio("nyan", "../assets/nyan.wav");
     game.load.image("busImgOne", "../assets/flappyBus.png");
     game.load.image("busImgTwo", "../assets/flappyBusTwo.png");
+
+    player2 = new Player(0,lives,"busImgTwo");
+
 
 }
 
@@ -43,7 +53,9 @@ function create() {
     // set the background colour of the scene
     game.stage.setBackgroundColor("#FF0000");
     game.sound.play("nyan");
-    game.input.keyboard.SPACEBAR.add(playerOneHandler);
+    game.input
+        .keyboard.addKey(Phaser.Keyboard.SPACEBAR)
+        .onDown.add(hander);
 
 
     busOne = game.add.sprite(10, 200, "busImgOne");
@@ -61,7 +73,7 @@ function update() {
 
 }
 
-function playerOneHandler(event){
-    aler("hi");
+function handler(event, sprite){
+    sprite.sprite.velocityX -= 100;
 }
 
