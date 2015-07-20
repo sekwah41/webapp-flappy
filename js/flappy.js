@@ -22,7 +22,6 @@ var score = 0;
 
 function preload() {
 
-    //game.load.audio("nyanCat", "../assets/nyan.mp3");
 
 }
 
