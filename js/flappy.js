@@ -68,8 +68,10 @@ function create() {
 
     player = new Player(1,0,lives,game.add.sprite( 40,200, "busImgOne"));
 
-    scoreDisplay1 = game.add.text(620, 20, "Score = " + player.score.toString());
-    scoreDisplay2 = game.add.text(620, 50, "Score = " + player2.score.toString());
+    player2 = new Player(2,0,lives,game.add.sprite( 120,200, "busImgTwo"));
+
+    //scoreDisplay1 = game.add.text(620, 20, "Score = " + player.score.toString());
+    //scoreDisplay2 = game.add.text(620, 50, "Score = " + player2.score.toString());
 
     scoreDisplay1 = game.add.text(510, 20, "Score = " + player.score.toString());
 
