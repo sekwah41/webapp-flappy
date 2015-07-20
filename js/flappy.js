@@ -11,7 +11,7 @@ var stateActions = { preload: preload, create: create, update: update };
 // Character objects
 
 
-function Player(scores, lives, sprite) {
+function Player(score, lives, sprite) {
     this.score = score;
     this.lives = lives;
     this.sprite = sprite;
@@ -51,7 +51,7 @@ function preload() {
  */
 function create() {
     // set the background colour of the scene
-    game.stage.setBackgroundColor("#FF0000");
+
     game.sound.play("nyan");
     game.input
         .keyboard.addKey(Phaser.Keyboard.SPACEBAR)
