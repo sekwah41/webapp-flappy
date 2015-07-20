@@ -11,7 +11,8 @@ var stateActions = { preload: preload, create: create, update: update };
 // Character objects
 
 
-function Player(score, lives, sprite) {
+function Player(playerNum, score, lives, sprite) {
+    this.playerNum = playerNum;
     this.score = score;
     this.lives = lives;
     this.sprite = sprite;
@@ -42,6 +43,13 @@ var scoreDisplay2;
 function preload() {
 
     game.load.audio("nyan", "../assets/nyan.wav");
+    //test.volume = 0.1;
+    game.load.audio("horn11", "../assets/horn11.wav");
+    game.load.audio("horn21", "../assets/horn21.wav");
+    game.load.audio("horn31", "../assets/horn31.wav");
+    game.load.audio("horn12", "../assets/horn12.wav");
+    game.load.audio("horn22", "../assets/horn22.wav");
+    game.load.audio("horn32", "../assets/horn32.wav");
     game.load.image("busImgOne", "../assets/flappy-bus.png");
     game.load.image("busImgTwo", "../assets/flappy-bus2.png");
 
@@ -52,19 +60,19 @@ function preload() {
  * Initialises the game. This function is only called once.
  */
 function create() {
-    var lives = prompt("How many lives", "5");
+    var lives = 5;//prompt("How many lives", "5");
 
     // set the background colour of the scene
 
-    player = new Player(0,lives,game.add.sprite( 40,200, "busImgOne"));
+    player = new Player(1,0,lives,game.add.sprite( 40,200, "busImgOne"));
+
+    player2 = new Player(2,0,lives,game.add.sprite( 120,200, "busImgTwo"));
 
     scoreDisplay1 = game.add.text(620, 20, "Score = " + player.score.toString());
     scoreDisplay2 = game.add.text(620, 50, "Score = " + player2.score.toString());
 
 
     //player.sprite.scale.setTo(5, 5);
-
-    player2 = new Player(0,lives,game.add.sprite( 120,200, "busImgTwo"));
 
     game.sound.play("nyan");
     game.input
@@ -116,5 +124,6 @@ function handler(event, player){
     player.sprite.body.velocity.y = -180;
     //player.sprite.angle = -45;
     player.rotateSpeed = 0;
+    game.sound.play("horn" + Math.floor(Math.random() * 2 + 1.5) + player.playerNum);
 }
 
