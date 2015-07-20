@@ -42,9 +42,9 @@ function preload() {
 function create() {
     // set the background colour of the scene
     game.stage.setBackgroundColor("#FF0000");
-
-    game.input.keyboard.SPACEBAR.add(playerOneHandler);
     game.sound.play("nyan");
+    game.input.keyboard.SPACEBAR.add(playerOneHandler);
+
 
     busOne = game.add.sprite(10, 200, "busImgOne");
     busTwo = game.add.sprite( 40,200, "busImgTwo");
