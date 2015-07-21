@@ -118,9 +118,11 @@ function update() {
         .overlap(player.sprite,
     pipes,
     respawnP1);
-        player.sprite.scale.setTo(1, 1);}
+        player.sprite.alpha = 1;
+        //player2.sprite.scale.setTo(1, 1);}
+    }
     else{
-        player.sprite.scale.setTo(0.75 + Math.cos((250 - reloadTimeP1)  / 4) / 4, 0.75 + Math.cos((250 - reloadTimeP1)  / 4) / 4);
+        player.sprite.alpha = 0.65 + Math.cos((250 - reloadTimeP1)  / 4) / 4;
     }
 
     if(reloadTimeP2 >= 250) {
@@ -128,9 +130,12 @@ function update() {
             .overlap(player2.sprite,
             pipes,
             respawnP2);
-        player2.sprite.scale.setTo(1, 1);}
+        player2.sprite.alpha = 1;
+        //player2.sprite.scale.setTo(1, 1);}
+    }
     else{
-        player2.sprite.scale.setTo(0.75 + Math.cos((250 - reloadTimeP2)  / 4) / 4, 0.75 + Math.cos((250 - reloadTimeP2)  / 4) / 4);
+        player2.sprite.alpha = 0.65 + Math.cos((250 - reloadTimeP2)  / 4) / 4;
+        //player2.sprite.scale.setTo(0.75 + Math.cos((250 - reloadTimeP2)  / 4) / 4, 0.75 + Math.cos((250 - reloadTimeP2)  / 4) / 4);
     }
     reloadTimeP1++;
     reloadTimeP2++;
