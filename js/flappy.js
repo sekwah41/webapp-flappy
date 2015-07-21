@@ -39,7 +39,7 @@ var scoreDisplay2;
 
 function preload() {
 
-    game.load.audio("nyan", "../assets/nyan.wav");
+    game.load.audio("nyan", "../assets/nyanhorn.wav");
     //test.volume = 0.1;
     game.load.audio("horn11", "../assets/horn11.wav");
     game.load.audio("horn21", "../assets/horn21.wav");
@@ -51,6 +51,7 @@ function preload() {
     game.load.image("busImgTwo", "../assets/flappy-bus2.png");
     game.load.image("road", "../assets/roadBackground.jpg");
     game.load.image("pipe", "../assets/pipe2-body.png");
+    game.load.image("pipeend", "../assets/pipe2-end.png");
 
 
 }
@@ -94,8 +95,8 @@ function create() {
     //player2.sprite = game.add.sprite( 40,200, "busImgTwo");
     game.physics.arcade.enable(player.sprite);
     game.physics.arcade.enable(player2.sprite);
-    player.sprite.body.gravity.y = 180;
-    player2.sprite.body.gravity.y = 180;
+    player.sprite.body.gravity.y = 240;
+    player2.sprite.body.gravity.y = 240;
 
     pipeInterval = 1.75;
     game.time.events
@@ -113,26 +114,44 @@ function update() {
     if(reloadTimeP2 >= 101)updateRotation(player2);
 
 
-    if(reloadTimeP1 > 250){game.physics.arcade
+    if(reloadTimeP1 >= 250){game.physics.arcade
         .overlap(player.sprite,
     pipes,
-    respawnP1);}
+    respawnP1);
+        player.sprite.scale.setTo(1, 1);}
+    else{
+        player.sprite.scale.setTo(0.75 + Math.cos((250 - reloadTimeP1)  / 4) / 4, 0.75 + Math.cos((250 - reloadTimeP1)  / 4) / 4);
+    }
 
-    if(reloadTimeP2 > 250) {
+    if(reloadTimeP2 >= 250) {
         game.physics.arcade
             .overlap(player2.sprite,
             pipes,
             respawnP2);
+        player2.sprite.scale.setTo(1, 1);}
+    else{
+        player2.sprite.scale.setTo(0.75 + Math.cos((250 - reloadTimeP2)  / 4) / 4, 0.75 + Math.cos((250 - reloadTimeP2)  / 4) / 4);
     }
     reloadTimeP1++;
     reloadTimeP2++;
 
+    if(player.sprite.y > 400){
+        player.sprite.y = 399;
+        player.sprite.body.velocity.y = 0;
+    }
+
+    if(player2.sprite.y > 400){
+        player2.sprite.y = 399;
+        player2.sprite.body.velocity.y = 0;
+    }
+
+
 
     if(reloadTimeP1 == 100){
-        player.sprite = game.add.sprite( 120,200, "busImgOne");
+        player.sprite = game.add.sprite( 40,200, "busImgOne");
         game.physics.arcade.enable(player.sprite);
         player.sprite.body.velocity.y = 0;
-        player.sprite.body.gravity.y = 180;
+        player.sprite.body.gravity.y = 240;
         player.sprite.anchor.setTo(0.5, 0.5);
         player.alive = true;
     }
@@ -140,17 +159,9 @@ function update() {
         player2.sprite = game.add.sprite( 120,200, "busImgTwo");
         game.physics.arcade.enable(player2.sprite);
         player2.sprite.body.velocity.y = 0;
-        player2.sprite.body.gravity.y = 180;
+        player2.sprite.body.gravity.y = 240;
         player2.sprite.anchor.setTo(0.5, 0.5);
         player2.alive = true;
-    }
-
-    if(player.sprite.y > 400){
-        player.sprite.y = 400;
-    }
-
-    if(player2.sprite.y > 400){
-        player2.sprite.y = 400;
     }
 
     scoreDisplay1.setText("Player 1 Score = " + player.score);
@@ -187,16 +198,33 @@ function newPipe(){
     var gap = game.rnd.integerInRange(3 ,5);
     for (var count = 0; count < 8; count++) {
         if (count != gap && count != gap+1) {
-            addPipeBlock(750, count * 50);
+            if(count > gap){
+                addPipeBlock(750, count * 50, 0);
+            }
+            else{
+                addPipeBlock(750, count * 50 - 20, 0);
+            }
+
         }
     }
 
-    if(player.alive){player.score++;}
-    if(player2.alive){player2.score++}
+    addPipeBlock(747.5, (gap+2) * 50, 2);
+    addPipeBlock(747.5, (gap) * 50 - 20, 2);
+
+    if(reloadTimeP1 >= 250){player.score++;}
+    if(reloadTimeP2 >= 250){player2.score++}
 }
 
-function addPipeBlock(x, y) {
-    var pipeBlock = game.add.sprite(x,y,"pipe");
+function addPipeBlock(x, y, id) {
+    if(id == 0) {
+        var pipeBlock = game.add.sprite(x,y,"pipe");
+    }
+    else if(id == 1) {
+        var pipeBlock = game.add.sprite(x,y,"pipeend");
+    }
+    else if(id == 2) {
+        var pipeBlock = game.add.sprite(x,y,"pipeend");
+    }
     pipes.push(pipeBlock);
     game.physics.arcade.enable(pipeBlock);
     pipeBlock.body.velocity.x = -200;
