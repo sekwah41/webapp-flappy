@@ -27,7 +27,12 @@ var pipes = [];
 
 var reloadTimeP1 = 101; //Doesn't matter what it is as long it is bigger than 100
 var reloadTimeP2 = 101;
-var game = new Phaser.Game(790, 400, Phaser.AUTO, 'game', stateActions);
+
+var game;
+
+function startGame() {
+    game = new Phaser.Game(790, 400, Phaser.AUTO, 'game', stateActions);
+}
 
 var scoreDisplay;
 
@@ -95,8 +100,8 @@ function create() {
     //player2.sprite = game.add.sprite( 40,200, "busImgTwo");
     game.physics.arcade.enable(player.sprite);
     game.physics.arcade.enable(player2.sprite);
-    player.sprite.body.gravity.y = 240;
-    player2.sprite.body.gravity.y = 240;
+    player.sprite.body.gravity.y =400;
+    player2.sprite.body.gravity.y = 400;
 
     pipeInterval = 1.75;
     game.time.events
@@ -156,7 +161,7 @@ function update() {
         player.sprite = game.add.sprite( 40,200, "busImgOne");
         game.physics.arcade.enable(player.sprite);
         player.sprite.body.velocity.y = 0;
-        player.sprite.body.gravity.y = 240;
+        player.sprite.body.gravity.y = 400;
         player.sprite.anchor.setTo(0.5, 0.5);
         player.alive = true;
     }
@@ -164,13 +169,17 @@ function update() {
         player2.sprite = game.add.sprite( 120,200, "busImgTwo");
         game.physics.arcade.enable(player2.sprite);
         player2.sprite.body.velocity.y = 0;
-        player2.sprite.body.gravity.y = 240;
+        player2.sprite.body.gravity.y = 400;
         player2.sprite.anchor.setTo(0.5, 0.5);
         player2.alive = true;
     }
 
     scoreDisplay1.setText("Player 1 Score = " + player.score);
-    scoreDisplay2.setText("Player 2 Score = " + player2.score)
+    scoreDisplay2.setText("Player 2 Score = " + player2.score);
+
+    if(player.lives == 0 && player2.lives == 0){
+        game.destroy();
+    }
 }
 
 function updateRotation(player){
@@ -249,3 +258,13 @@ function respawnP2(){
 }
 
 
+$("#play").click(function(){
+
+    $("#greeting").show();
+
+});
+jQuery("#greeting").on("submit", function(event_details){
+    event_details.preventDefault();
+    startGame();
+    jQuery("#greeting").hide();
+})
