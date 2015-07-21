@@ -27,17 +27,55 @@ var pipes = [];
 
 var reloadTimeP1 = 101; //Doesn't matter what it is as long it is bigger than 100
 var reloadTimeP2 = 101;
-var game = new Phaser.Game(790, 400, Phaser.AUTO, 'game', stateActions);
+var game;
 
 var scoreDisplay;
 
 var scoreDisplay2;
 
+var nyanHorn;
+
+var fadeIn;
+
+$.get("/score", function(scores){
+    scores.sort(function (scoreA, scoreB){
+        var difference = scoreB.score - scoreA.score;
+        return difference;
+    });
+    for (var i = 0; i < scores.length; i++) {
+        $("#scoreBoard").append(
+            "<li>" +
+            scores[i].name + ": " + scores[i].score +
+            "</li>");
+    }
+});
+
 /*
  * Loads all resources for the game and gives them names.
  */
 
+function startGame(){
+    game = new Phaser.Game(790, 400, Phaser.AUTO, 'game', stateActions);
+}
+
 function preload() {
+
+    jQuery("#greeting-form").on("submit", function(event_details) {
+        //var greeting = "Hello ";
+        var name = jQuery("#fullName").val();
+        //var greeting_message = greeting + name;
+        //alert(greeting_message);
+        //location.reload();
+        $("#submitscore").fadeTo(400,0,function(){
+            $("#submitscore").hide();
+            $("#gamecontainer").animate({'marginTop': '100%'},{ duration: 1000, queue: false, complete: function(){
+                location.reload();
+            }});
+            $("#gamebackground").fadeTo({ duration: 600, queue: false },0);
+        });
+        //event_details.preventDefault();
+    });
+
 
     game.load.audio("nyan", "../assets/nyanhorn.wav");
     //test.volume = 0.1;
@@ -60,6 +98,12 @@ function preload() {
  * Initialises the game. This function is only called once.
  */
 function create() {
+    $("#gamebackground").show();
+    game.paused = true;
+    $("#gamecontainer").animate({'marginTop': '5%'},{ duration: 1000, queue: false, complete: function(){
+        game.paused = false;
+    }});
+    $("#gamebackground").fadeTo({ duration: 600, queue: false },1);
     var lives = 5;//prompt("How many lives", "5");
 
     // set the background colour of the scene
@@ -78,11 +122,14 @@ function create() {
 
     //player.sprite.scale.setTo(5, 5);
 
-    scoreDisplay2 = game.add.text(510, 50, "Score = " + player2.score.toString());
+    scoreDisplay2 = game.add.text(510, -50, "Score = " + player2.score.toString());
 
     //player.sprite.scale.setTo(5, 5);
+    nyanHorn =  game.add.audio("nyan2");
+    nyanHorn.play();
+    nyanHorn.volume = 0;
+    fadeIn = true;
 
-    game.sound.play("nyan");
     game.input
         .keyboard.addKey(Phaser.Keyboard.SPACEBAR)
         .onDown.add(handlerP1);
@@ -102,6 +149,10 @@ function create() {
     game.time.events
         .loop(pipeInterval * Phaser.Timer.SECOND,
     newPipe);
+
+    player2.alive = false;
+    player2.sprite.destroy();
+    reloadTimeP2=101;
 }
 
 /*
@@ -141,8 +192,12 @@ function update() {
     reloadTimeP2++;
 
     if(player.sprite.y > 400){
+        respawnP1();
         player.sprite.y = 399;
         player.sprite.body.velocity.y = 0;
+    }
+    if(player.sprite.y < 0){
+        respawnP1();
     }
 
     if(player2.sprite.y > 400){
@@ -170,7 +225,26 @@ function update() {
     }
 
     scoreDisplay1.setText("Player 1 Score = " + player.score);
-    scoreDisplay2.setText("Player 2 Score = " + player2.score)
+    scoreDisplay2.setText("Player 2 Score = " + player2.score);
+
+    if (nyanHorn.volume > 0 && !fadeIn) {
+        nyanHorn.volume -= 0.03;
+    }
+    else if (!fadeIn){
+        nyanHorn.pause();
+        game.paused = true;
+    }
+
+    if (nyanHorn.volume < 1 && fadeIn) {
+        nyanHorn.volume += 0.03;
+        if (nyanHorn.paused){
+            nyanHorn.resume();
+            game.paused = false;
+        }
+    }
+    else if (fadeIn && !nyanHorn.isPaused){
+        nyanHorn.volume = 1;
+    }
 }
 
 function updateRotation(player){
@@ -239,13 +313,30 @@ function respawnP1(){
     player.alive = false;
     player.sprite.destroy();
     reloadTimeP1=0;
+    // code to test highscore
+    //game.paused = true;
+    //game.destroy();
+    gameOver();
+    //if(player.score > 0){
+    $("#submitscore").show();
+    $("#submitscore").fadeTo(400,1);
+    //}
+
+
 
 }
 function respawnP2(){
-    player.alive = false;
+    player2.alive = false;
     player2.sprite.destroy();
     reloadTimeP2=0;
 
+}
+
+function gameOver(){
+    $("#score").val(JSON.stringify(player.score));
+
+    game.destroy();
+    //location.reload();
 }
 
 

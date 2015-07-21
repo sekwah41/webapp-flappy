@@ -3,35 +3,78 @@
     <head style="width: 100%; height: 100%;">
         <title>Flappy Bus</title>
         <link rel="stylesheet" href="../lib/bootstrap.css" type="text/css">
-        <link rel="stylesheet" href="default.css" type="text/css">
+        <link rel="stylesheet" href="../lib/default.css" type="text/css">
+        <script src="../lib/jquery.js"></script>
+        <script src="../lib/phaser.min.js"></script>
+        <script src="../js/flappy.js"></script>
     </head>
     <body style="width: 100%; height: 100%;">
-    <div id="pageContainer">
+    <div class="container" id="infoPage">
         <div class="jumbotron">
             <h1>Flappy Bus</h1>
             <p>The flappiest bus around!</p>
         </div>
         <div class="row">
-            <div class="col-md-6">
+            <!--<div class="col-md-6">
                 <p id="gamelink">
                     <a href="example.html">Check it out</a>
                 </p>
+            </div>-->
+            <div class="col-xs-8">
+                <p id="gamelink">
+                    <a >
+                        <img  onclick="startGame()" src="../assets/screenshot.png" class="img-responsive" >
+                    </a>
+                </p>
             </div>
-            <div class="col-md-6">
+            <div class="col-xs-4">
                 <p>Biggest Scrubs:</p>
-                <ul>
-                    <li class="topScore">Snoop</li>
-                    <li class="score">Leeeroooyy Jenkins</li>
-                    <li class="score">Wally</li>
+                <ul id="scoreBoard">
+
                 </ul>
+                <br>
+
             </div>
         </div>
-        <p id="gamelink">
-            <a href="example.html">
-                <img src="../assets/screenshot.png" class="img-responsive" >
-            </a>
-        </p>
+        <div class="row">
+            <div class="col-md-4">
+                <img id="image1" src="../assets/screenshotStart.png" class="img-thumbnail img-responsive" />
+            </div>
+            <div class="col-md-4">
+                <img id="image2" src="../assets/screenshot.png" class="img-thumbnail img-responsive" />
+            </div>
+            <div class="col-md-4">
+                <img id="image3" src="../assets/screenshotOver.png" class="img-thumbnail img-responsive" />
+            </div>
+        </div>
 
+    </div>
+    <div id="gamebackground">
+        <div id="gamecontainer">
+            <div id="game"> </div>
+        </div>
+
+    </div>
+
+    <div id="submitscore">
+        <div id="greeting">
+            <h3>Save your score</h3>
+            <form id="greeting-form" method="post" action="/score">
+            <div class="form-group">
+
+                <label for="fullName">What's your name?</label>
+                <input type="text" id="fullName" class="form-control"
+                       name="fullName" placeholder="Bob" required>
+
+                <label for="email">What's your email?</label>
+                <input type="email" id="email" class="form-control"
+                       name="email" placeholder="bob@email.com">
+
+                <input type="hidden" id="score" name="score" value="0">
+                <button class="btn btn-default" type="submit">OK</button>
+            </div>
+            </form>
+        </div>
     </div>
     <!-- <iframe src="example.html" frameborder="0" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; border:"></iframe> -->
     </body>
