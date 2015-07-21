@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<script src="../lib/jquery.js"></script>
+<script src="../lib/phaser.min.js"></script>
+
+
+<link rel="stylesheet" href="../lib/bootstrap.css"/>
+<link rel="stylesheet" href="../pages/style.css"/>
+
+
+<title> Flappy Bus Version 0.1 </title>
+
+<body id = "body">
+    <div class = "container">
+        <div class = "jumbotron" id = "jumbo">
+            <h1> Flappy Bus <img src="../assets/flappy-bus.png" /></h1>
+        </div>
+        <div id = "square"></div>
+        <div id = "play" class="img-responsive"></div>
+    </div>
+    <div id ="gamepos"><div id ="game"></div></div>
+    <div id = "scoreboard"></div>
+    <p id="title"> Biggest Try Hards: </p>
+
+
+    <div id="greeting">
+        <form id="greeting-form" class="form-inline" method="post" action="/score">
+            <div class="form-group">
+
+                <label for="fullName">What's your name?</label>
+                <input type="text" id="fullName" class="form-control"
+                       name="fullName" placeholder="Bob">
+
+
+                <input type="hidden" id="score" name="score" value="0">
+
+            </div>
+            <button class="btn btn-default" type="submit">OK</button>
+        </form>
+    </div>
+
+    <script src="../js/flappy.js"></script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+
+#jumbo{
+    margin: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 1200px;
+}
+
+#gamepos {
+
+    width:50%;
+}
+#game {
+    position: fixed;
+    left: 344px;
+    top: 275px;
+}
+#square{
+    position: fixed;
+    left: 344px;
+    top: 275px;
+    width: 790px;
+    height: 400px;
+    background-image: url("../assets/ready.png");
+}
+
+#play{
+    position: fixed;
+    top: 340px;
+    left: 600px;
+    width: 790px;
+    height: 400px;
+    background-image: url("../assets/startButton.jpg");
+    background-repeat: no-repeat;
+}
+
+#scoreboard{
+    position: fixed;
+    left: 1144px;
+    top: 275px;
+    width: 400px;
+    height: 400px;
+    background-color : #bce8f1;
+    border-radius: 5px
+}
+body{
+    background-color: #f5f5f5;
+}
+
+#title{
+    position: fixed;
+    color: black;
+    left: 1154px;
+    top: 290px;
+    font-size: 30px;
+    text-decoration: underline;
+}
+
+#greeting {
+    position: absolute;
+left: 40%;
+top: 40%;
+background: #fff;
+width: 350px;
+height: 300px;
+border: 2px solid gray;
+border-radius: 5px;
+padding: 20px;
+    display: none;
+}

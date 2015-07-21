@@ -264,7 +264,7 @@ $("#play").click(function(){
 
 });
 jQuery("#greeting").on("submit", function(event_details){
-    event_details.preventDefault();
+    //event_details.preventDefault();
     startGame();
     jQuery("#greeting").hide();
 })
