@@ -307,8 +307,8 @@ function newPipe(){
     if(reloadTimeP1 >= 250){player.score++;}
     if(reloadTimeP2 >= 250){player2.score++}
 
-    var rand = Math.floor((Math.random() * 10) + 1);
-    if(rand == 10 ){
+    var rand = Math.floor((Math.random() * 5));
+    if(rand == 4 ){
         generatePerson(720,gap * 50 + 10);
     }
 }
