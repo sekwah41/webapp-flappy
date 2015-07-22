@@ -24,6 +24,9 @@ function Player(playerNum, score, lives, sprite) {
 var player;
 var player2 = player;
 var pipes = [];
+var people1=[];
+var people2 = [];
+
 
 var reloadTimeP1 = 101; //Doesn't matter what it is as long it is bigger than 100
 var reloadTimeP2 = 101;
@@ -90,8 +93,8 @@ function preload() {
     game.load.image("road", "../assets/roadBackground.jpg");
     game.load.image("pipe", "../assets/pipe2-body.png");
     game.load.image("pipeend", "../assets/pipe2-end.png");
-    game.load.image("person", "../assets/people.jpg");
-
+    game.load.image("person", "../assets/people.png");
+    game.load.image("person2","../assets/people2.png")
 }
 
 /*
@@ -122,7 +125,7 @@ function create() {
 
     //player.sprite.scale.setTo(5, 5);
 
-    scoreDisplay2 = game.add.text(510, -50, "Score = " + player2.score.toString());
+    scoreDisplay2 = game.add.text(510, 50, "Score = " + player2.score.toString());
 
     //player.sprite.scale.setTo(5, 5);
     nyanHorn =  game.add.audio("nyan2");
@@ -150,9 +153,9 @@ function create() {
         .loop(pipeInterval * Phaser.Timer.SECOND,
     newPipe);
 
-    player2.alive = false;
+    /**player2.alive = false;
     player2.sprite.destroy();
-    reloadTimeP2=101;
+    reloadTimeP2=101;*/
     //game.add.image(0,0,"person");
 }
 
@@ -246,6 +249,16 @@ function update() {
     else if (fadeIn && !nyanHorn.isPaused){
         nyanHorn.volume = 1;
     }
+
+    game.physics.arcade
+        .overlap(player2.sprite,
+        people2,
+        pickUp2);
+    game.physics.arcade
+        .overlap(player.sprite,
+        people1,
+        pickUp);
+    player2.sprite.alpha = 1;
 }
 
 function updateRotation(player){
@@ -295,8 +308,8 @@ function newPipe(){
     if(reloadTimeP2 >= 250){player2.score++}
 
     var rand = Math.floor((Math.random() * 10) + 1);
-    if(rand > 0){
-        generatePerson(745,gap * 50);
+    if(rand == 10 ){
+        generatePerson(720,gap * 50 + 10);
     }
 }
 
@@ -319,10 +332,10 @@ function respawnP1(){
     // code to test highscore
     //game.paused = true;
     //game.destroy();
-    gameOver();
+    //gameOver();
     //if(player.score > 0){
-    $("#submitscore").show();
-    $("#submitscore").fadeTo(400,1);
+    //$("#submitscore").show();
+    //$("#submitscore").fadeTo(400,1);
     //}
 
 
@@ -344,10 +357,29 @@ function gameOver(){
 
 function generatePerson(x,y){
     var person = game.add.sprite(x, y, "person");
+    var person2 = game.add.sprite(x + 60, y - 10, "person2");
     game.physics.arcade.enable(person);
-    person.width = 100;
+    person.width = 50;
     person.height = 50;
     person.body.velocity.x = -200;
+
+    game.physics.arcade.enable(person2);
+    person2.width = 70;
+    person2.height = 70;
+    person2.body.velocity.x = -200;
+    people1.push(person);
+    people2.push(person2);
 }
 
+function pickUp(){
+    player.sprite.body.gravity.y *= 1.5;
+    player.score += 10;
+    people1.splice(0,1)[0].kill();
+}
+
+function pickUp2(){
+    player2.sprite.body.gravity.y *= 1.5;
+    player2.score += 10;
+    people2.splice(0,1)[0].kill();
+}
 
