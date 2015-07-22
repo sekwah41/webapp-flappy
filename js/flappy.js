@@ -90,7 +90,7 @@ function preload() {
     game.load.image("road", "../assets/roadBackground.jpg");
     game.load.image("pipe", "../assets/pipe2-body.png");
     game.load.image("pipeend", "../assets/pipe2-end.png");
-
+    game.load.image("person", "../assets/people.jpg");
 
 }
 
@@ -153,6 +153,7 @@ function create() {
     player2.alive = false;
     player2.sprite.destroy();
     reloadTimeP2=101;
+    //game.add.image(0,0,"person");
 }
 
 /*
@@ -287,11 +288,16 @@ function newPipe(){
         }
     }
 
-    addPipeBlock(747.5, (gap+2) * 50, 2);
-    addPipeBlock(747.5, (gap) * 50 - 20, 2);
+    addPipeBlock(747.5, (gap+2) * 50, 1);
+    addPipeBlock(747.5, (gap) * 50 - 20, 1);
 
     if(reloadTimeP1 >= 250){player.score++;}
     if(reloadTimeP2 >= 250){player2.score++}
+
+    var rand = Math.floor((Math.random() * 10) + 1);
+    if(rand > 0){
+        generatePerson(745,gap * 50);
+    }
 }
 
 function addPipeBlock(x, y, id) {
@@ -299,9 +305,6 @@ function addPipeBlock(x, y, id) {
         var pipeBlock = game.add.sprite(x,y,"pipe");
     }
     else if(id == 1) {
-        var pipeBlock = game.add.sprite(x,y,"pipeend");
-    }
-    else if(id == 2) {
         var pipeBlock = game.add.sprite(x,y,"pipeend");
     }
     pipes.push(pipeBlock);
@@ -337,6 +340,14 @@ function gameOver(){
 
     game.destroy();
     //location.reload();
+}
+
+function generatePerson(x,y){
+    var person = game.add.sprite(x, y, "person");
+    game.physics.arcade.enable(person);
+    person.width = 100;
+    person.height = 50;
+    person.body.velocity.x = -200;
 }
 
 
