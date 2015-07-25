@@ -128,7 +128,7 @@ function create() {
     scoreDisplay2 = game.add.text(510, 50, "Score = " + player2.score.toString());
 
     //player.sprite.scale.setTo(5, 5);
-    nyanHorn =  game.add.audio("nyan2");
+    //nyanHorn =  game.add.audio("nyan2");
     nyanHorn.play();
     nyanHorn.volume = 0;
     fadeIn = true;
