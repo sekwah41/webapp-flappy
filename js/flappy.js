@@ -80,7 +80,7 @@ function preload() {
     });
 
 
-    game.load.audio("nyan", "../assets/nyanhorn.wav");
+    //game.load.audio("nyan", "../assets/nyanhorn.wav");
     //test.volume = 0.1;
     game.load.audio("horn11", "../assets/horn11.wav");
     game.load.audio("horn21", "../assets/horn21.wav");
