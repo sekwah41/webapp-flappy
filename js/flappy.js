@@ -129,8 +129,8 @@ function create() {
 
     //player.sprite.scale.setTo(5, 5);
     //nyanHorn =  game.add.audio("nyan2");
-    nyanHorn.play();
-    nyanHorn.volume = 0;
+    //nyanHorn.play();
+    //nyanHorn.volume = 0;
     fadeIn = true;
 
     game.input
