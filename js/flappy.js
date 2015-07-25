@@ -231,7 +231,7 @@ function update() {
     scoreDisplay1.setText("Player 1 Score = " + player.score);
     scoreDisplay2.setText("Player 2 Score = " + player2.score);
 
-    if (nyanHorn.volume > 0 && !fadeIn) {
+    /*if (nyanHorn.volume > 0 && !fadeIn) {
         nyanHorn.volume -= 0.03;
     }
     else if (!fadeIn){
@@ -248,7 +248,7 @@ function update() {
     }
     else if (fadeIn && !nyanHorn.isPaused){
         nyanHorn.volume = 1;
-    }
+    }*/
 
     game.physics.arcade
         .overlap(player2.sprite,
